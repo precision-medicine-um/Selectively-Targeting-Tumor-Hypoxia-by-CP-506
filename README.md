@@ -16,9 +16,12 @@ Hypoxia is a pervasive feature of human tumors that is acknowledged as a major i
 To test whether HF and sensitivity of tumor cell lines to CP-506 defined as the anoxic IC50 value influenced ER or SGD, a database was constructed containing 434 animals (Supplementary Table 4). Only models for which HF and ER were available were included resulting in 381 observations. Outcome data were fit to multiple linear regression with different independent variables: HF (%), anoxic IC50 (?M), absolute cumulative exposure (mg), and mean volume doubling time (VDT, days). Absolute cumulative exposure (further referred to as CP-506 dose) was calculated as the relative dose (mg/kg) times the total number of injections the animal receives times the bodyweight (kg) of the animal at the start of treatment. Since HF could not be determined in the same animal as an outcome variable but was rather determined in sentinel animals in an accompanying experiment, HF was drawn from normal distribution with mean HF and SD estimated for each tumor type in parallel (vide supra). Then, HF was randomly assigned to each tumor and a multivariate linear regression analysis was performed (STATA/IC 11.1). This procedure was repeated 500 times. The number of significant associations was counted and the direction of the effect (positive or negative) was recorded for each parameter in the model. The nomogram to predict ER was obtained using R (version 4.0.2).
 
 ### Code (do file) for simulations is STATA11:
+
 Bootstrapping HF to fit multiple linear regression
-. cd C:\01Ala\CP-506\modelling
-. do simul
+
+	. cd C:\01Ala\CP-506\modelling
+	. do simul
+
 //*
 	tempname sim
 	postfile `sim' p_dose coef_dose p_hf coef_hf p_ic50anox 	coef_ic50anox p_vdt coef_vdt using resout,replace
@@ -120,13 +123,20 @@ Bootstrapping HF to fit multiple linear regression
 	postclose `sim'
 
 *//
+
 . tempname sim
+
 . postfile `sim' p_dose coef_dose p_hf coef_hf p_ic50anox coef_ic50anox p_vdt coef_vdt using resout,replace
+
 . use datacp506-nomissingER.dta, clear
+
 . gen hf_simul=.
 (400 missing values generated)
+
 . set output error
 end of do-file
+
 . use resout, clear
+
 . save results_bs, replace
 file results_bs.dta saved
