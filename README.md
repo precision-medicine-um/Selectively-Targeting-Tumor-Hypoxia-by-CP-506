@@ -23,6 +23,7 @@ Bootstrapping HF to fit multiple linear regression
 	. do simul
 
 //*
+
 	tempname sim
 	postfile `sim' p_dose coef_dose p_hf coef_hf p_ic50anox 	coef_ic50anox p_vdt coef_vdt using resout,replace
 	use datacp506-nomissingER.dta, clear
@@ -124,19 +125,13 @@ Bootstrapping HF to fit multiple linear regression
 
 *//
 
-. tempname sim
-
-. postfile `sim' p_dose coef_dose p_hf coef_hf p_ic50anox coef_ic50anox p_vdt coef_vdt using resout,replace
-
-. use datacp506-nomissingER.dta, clear
-
-. gen hf_simul=.
-(400 missing values generated)
-
-. set output error
-end of do-file
-
-. use resout, clear
-
-. save results_bs, replace
-file results_bs.dta saved
+	. tempname sim
+	. postfile `sim' p_dose coef_dose p_hf coef_hf p_ic50anox 	coef_ic50anox p_vdt coef_vdt using resout,replace
+	. use datacp506-nomissingER.dta, clear
+	. gen hf_simul=.
+	(400 missing values generated)
+	. set output error
+	end of do-file
+	. use resout, clear
+	. save results_bs, replace
+	file results_bs.dta saved
